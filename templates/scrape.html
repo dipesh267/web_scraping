@@ -16,12 +16,13 @@
       <h1>Scrape Mars</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape it</a></p>
     </div>
-    <div class="row" id="scrape_weather_row">
-        <h3>Mars Weather</h3>
+    <div class="row" id="scrape_news_title">
+        <h3>{{data.news_dict.news_title}}</h3>
         <div class="col-md-12" id="scrape_weather">
-            <h4 class="heading">{{data.mars_weather}}</h4>
+            <h4 class="heading">{{data.news_dict.news_p}}</h4>
         </div>
     </div>
+
     <div class="row" id="scrape_featured">
         <div class="col-md-6">
             <img class="img" src="{{data.featured_image_url}}" style="width: 50rem;">
@@ -30,7 +31,12 @@
             {{data.mars_html}}
         </div>
     </div>
-    
+    <div class="row" id="scrape_weather_row">
+            <h3>Mars Weather</h3>
+            <div class="col-md-12" id="scrape_weather">
+                <h4 class="heading">{{data.mars_weather}}</h4>
+            </div>
+    </div>
     {% for item in data.hemisphere_image_url_list%}
         <div class="col-lg-4">
             <div class="card" style="width: 20rem;">

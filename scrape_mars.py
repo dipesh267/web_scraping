@@ -95,7 +95,7 @@ def get_mars_data():
     mars_df = mars_df.set_index('Description');
     mars_html = mars_df.to_html();
     mars_html = mars_html.replace('\n', '')
-
+    
     return mars_html
 
 def get_mars_hemisphere():
