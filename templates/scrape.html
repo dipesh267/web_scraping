@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mars Scrape</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Scrape Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape it</a></p>
+    </div>
+    <div class="row" id="scrape_weather_row">
+        <h3>Mars Weather</h3>
+        <div class="col-md-12" id="scrape_weather">
+            <h4 class="heading">{{data.mars_weather}}</h4>
+        </div>
+    </div>
+    <div class="row" id="scrape_featured">
+        <div class="col-md-6">
+            <img class="img" src="{{data.featured_image_url}}" style="width: 50rem;">
+        </div>
+        <div class="col-md-6">
+            {{data.mars_html}}
+        </div>
+    </div>
+    
+    {% for item in data.hemisphere_image_url_list%}
+        <div class="col-lg-4">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <img class="img" src="{{item.img_url}}" style="width: 40rem;">
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+  </div>
+</body>
+
+</html>

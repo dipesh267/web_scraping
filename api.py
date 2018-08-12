@@ -1,15 +1,32 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect, render_template
 import scrape_mars
 import pymongo
 
 app = Flask(__name__)
 
+conn = 'mongodb://localhost:27017'
+client = pymongo.MongoClient(conn)
+db = client.scrape_db
+    
 @app.route("/")
 def welcome():
-    conn = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(conn)
+    data = db.items.find_one(sort=[('_id', pymongo.DESCENDING)])
+    return render_template("scrape.html", data=data)
 
-    db = client.scrape_db
+@app.route("/scrape")
+def scrape():
+
+    """List all available api routes."""
+    scrape_dict = scrape_mars.scrape()
+
+    collection = db.items
+    collection.insert_one(scrape_dict)
+    
+    return redirect("http://localhost:5000/", code=302)
+
+@app.route("/returnJson")
+def returnJson():
+    
     collection = db.items
 
     scraped_data = db.items.find()
@@ -29,23 +46,6 @@ def welcome():
     """List all available api routes."""
     return (
         jsonify(scrape_dict)
-    )
-
-@app.route("/scrape")
-def scrape():
-
-    conn = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(conn)
-
-    """List all available api routes."""
-    scrape_dict = scrape_mars.scrape()
-
-    db = client.scrape_db
-    collection = db.items
-    collection.insert_one(scrape_dict)
-    
-    return (
-        "data has been scraped"
     )
 
 if __name__ == '__main__':
