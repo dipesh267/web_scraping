@@ -28,7 +28,7 @@
             <img class="img" src="{{data.featured_image_url}}" style="width: 50rem;">
         </div>
         <div class="col-md-6">
-            {{data.mars_html}}
+            {{data.mars_html | safe}}
         </div>
     </div>
     <div class="row" id="scrape_weather_row">
